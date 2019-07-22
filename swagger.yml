@@ -1,0 +1,125 @@
+swagger: '2.0'
+info:
+  version: 0.0.0
+  title: "SafeInterface"
+  description: "Description for SafeInterface"
+host: "mdsmw:6753"
+basePath: "/ekus/SafeInterface"
+paths:
+  /OpenSession:
+    post:
+      summary: "Open new Session"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Username and Password"
+        required: true
+        schema:
+          $ref: "#/definitions/OpenSession"
+          
+      responses:
+        200:
+          description: OK
+          schema:
+            type: "string"
+            items:
+              $ref: "#/definitions/OpenSessionRes"
+        
+          
+  /CloseSession:
+    post:
+      summary: "Closes current Session"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Current Session ID"
+        required: true
+        schema:
+          $ref: "#/definitions/CloseSession"
+          
+      responses:
+        200:
+          description: OK
+          schema:
+            type: "string"
+            items:
+              $ref: '#/definitions/CloseSessionRes'
+          
+  /CallFunction:
+    post:
+      summary: "Calls a function"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Calls a specific function"
+        required: true
+        schema:
+          $ref: '#/definitions/CallFuntion'
+          
+      responses:
+        200:
+          description: OK
+          schema:
+            type: "string"
+            items:
+              $ref: '#/definitions/CallFunctionRes'
+          
+definitions:
+  OpenSession:
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+        
+  CloseSession:
+    properties:
+      SessionId:
+        type: string
+        
+  CallFuntion:
+    properties:
+        SessionId:
+          type: string
+        SafeFunctionName:
+          type: string
+        data:
+          type: string
+  
+  OpenSessionRes:
+    type: object
+    properties:
+      Error:
+        type: string
+      Success:
+        type: boolean
+      SessionId:
+        type: string
+    
+  CloseSessionRes:
+    type: object
+    properties:
+      Error:
+        type: string
+      Success:
+        type: boolean
+        
+  CallFunctionRes:
+    type: object
+    properties:
+      Error:
+        type: string
+      Success:
+        type: boolean
+      data:
+        type: string
+        
